@@ -16,6 +16,7 @@ pygame.image
 #   FPS
 clock = pygame.time.Clock()
 
+game_font = pygame.font.Font(None, 40)
 #############################################
 
 # 1. Background, Game image, Character, Position of image, Font
@@ -40,12 +41,13 @@ character_y_pos = screen_height - character_height
 
 to_x_LEFT = 0
 to_x_RIGHT = 0
-character_speed = 10
+character_speed = 8
 
 poop_size = poop.get_rect().size
 poop_width = poop_size[0]
 poop_height = poop_size[1]
 poop_speed = 10
+dodged_poop = 0
 
 #   event loop
 running = True 
@@ -81,8 +83,8 @@ while running:
     # #   add poop every 30ms 
     # print ("elapsed time " , elapsed_time)
     # print("timer " , timer)
-    if elapsed_time - timer > 20:
-            random_num = random.randint(0, 1)
+    if elapsed_time - timer > 10:
+            random_num = random.randint(0, 2)
             if random_num == 1:
                 poops.append({
                     "poop_width" : poop_width,
@@ -99,6 +101,7 @@ while running:
         poop_y_pos = poop_val["poop_y_pos"]
         if poop_y_pos >= screen_height:
             del poops[poop_idx]
+            dodged_poop += 1
 
 
         #   By a random possibility, make poop at random place every second 
@@ -130,6 +133,9 @@ while running:
         poop_x_pos = val["poop_x_pos"]
         poop_y_pos = val["poop_y_pos"]
         screen.blit(poop, (poop_x_pos, poop_y_pos))
+
+    score = game_font.render("Score : {}".format(dodged_poop), True, (0,0,0))
+    screen.blit(score, (10,10)) 
 
     pygame.display.update()
 
