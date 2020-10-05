@@ -77,6 +77,7 @@ class Poop(object):
         return int(self.y_pos)
     
     def get_speed(self):
+        return int(self.speed)
 
 
 def game_loop():
@@ -162,7 +163,7 @@ def game_loop():
 
         for poo_idx, poo in enumerate(poops):
             
-            poo.set_ypos(poo.y_pos + poo.speed)
+            poo.set_y(poo.y_pos + poo.speed)
             poo_x_pos = poo.x_pos
             poo_y_pos = poo.y_pos
             if poo_y_pos >= screen_height:
